@@ -16,6 +16,36 @@ class Square extends React.Component {
 }
 
 class Board extends React.Component {
+    renderBoardRow(row) {
+        let boardRow = row.map((squareNumber) => {
+            return this.renderSquare(squareNumber);
+        });
+
+        return (
+            <div className="board-row">
+                { boardRow }
+            </div>
+        );
+    }
+
+    compoundBoard(rows, columns) {
+        // [[1,2,3],[4,5,6],[7,8,9]]
+        let boardRows = [];
+        let currentColumn = 0;
+
+        for (let i = 0; i < rows; i++) {
+            boardRows.push([]);
+            for (let j = 0; j < columns; j++) {
+                boardRows[i][j] = currentColumn;
+                currentColumn++;
+            }
+        }
+
+        return boardRows.map((row) => {
+            return this.renderBoardRow(row);
+        });
+    }
+
     renderSquare(i) {
         return (
             <Square
@@ -28,21 +58,7 @@ class Board extends React.Component {
     render() {
         return (
             <div>
-                <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
-                </div>
+                { this.compoundBoard(3, 3) }
             </div>
         );
     }
