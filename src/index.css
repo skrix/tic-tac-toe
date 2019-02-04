@@ -1,50 +1,93 @@
+:root {
+    /* fonts variables */
+    --main-font: 14px "Century Gothic", Futura, sans-serif;
+
+    /* main variables */
+    --main-bg-color:       #222222;
+    --main-text-color:     #fff;
+    --main-contrast-color: #00d8ff;
+
+    /* square variables */
+    --square-size:             200px;
+    --square-border:           1px solid #fff;
+    --square-background-color: #fff;
+    --square-hover-color:      rgba(255,255,255,0.1);
+}
+
 body {
-    font: 14px "Century Gothic", Futura, sans-serif;
-    margin: 20px;
+    margin-top:       2em;
+    font:             var(--main-font);
+    background-color: var(--main-bg-color);
 }
 
 ol, ul {
-    padding-left: 30px;
+    padding-left: 50px;
+}
+li {
+    margin-top: 0.7em;
 }
 
 .board-row:after {
-    clear: both;
     content: "";
+    clear:   both;
     display: table;
 }
 
 .status {
-    margin-bottom: 10px;
+    margin-bottom:  10px;
+    text-transform: uppercase;
+    text-align:     center;
+    font-size:      2em;
+    font-weight:    bolder;
+    margin-bottom:  20px;
+    color:          var(--main-contrast-color);
 }
 
 .square {
-    background: #fff;
-    border: 1px solid #999;
-    float: left;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 34px;
-    height: 34px;
+    float:        left;
+    font-weight:  bold;
+    text-align:   center;
     margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    width: 34px;
+    margin-top:   -1px;
+    padding:      0;
+    background:   var(--main-bg-color);
+    border:       var(--square-border);
+    font-size:    var(--square-size);
+    line-height:  var(--square-size);
+    height:       var(--square-size);
+    width:        var(--square-size);
+    color:        var(--main-contrast-color);
 }
 
 .square:focus {
     outline: none;
 }
 
-.kbd-navigation .square:focus {
-    background: #ddd;
+.square:hover {
+    background: var(--square-hover-color);
 }
 
 .game {
-    display: flex;
-    flex-direction: row;
+    display:         flex;
+    flex-direction:  row-reverse;
+    justify-content: center;
+    margin-left:     -160px;
+}
+
+.game-content {
+    display:         flex;
+    flex-direction:  column;
 }
 
 .game-info {
-    margin-left: 20px;
+    font-size:    1.5em;
+    font-weight:  bold;
+    margin-right: 30px;
+    margin-top:   40px;
+    color:        var(--main-text-color);
+}
+
+.btn-info {
+    background-color: var(--main-contrast-color);
+    color:            var(--main-bg-color);
 }

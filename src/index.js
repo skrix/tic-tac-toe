@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
 class Square extends React.Component {
@@ -116,8 +117,9 @@ class Game extends React.Component {
                 <li key={ move }>
                     <button
                         onClick={ () => this.jumpTo(move) }
+                        className="btn btn-info"
                     >
-                        {desc}
+                        { desc }
                     </button>
                 </li>
             )
@@ -132,14 +134,17 @@ class Game extends React.Component {
 
         return (
             <div className="game">
-                <div className="game-board">
-                    <Board
-                        squares={ current.squares }
-                        onClick={ (i) => this.handleClick(i) }
-                    />
+                <div className="game-content">
+                    <div className='status'>{ status }</div>
+                    <div className="game-board">
+                        <Board
+                            squares={ current.squares }
+                            onClick={ (i) => this.handleClick(i) }
+                        />
+                    </div>
                 </div>
+
                 <div className="game-info">
-                    <div>{ status }</div>
                     <ol>{ moves }</ol>
                 </div>
             </div>
