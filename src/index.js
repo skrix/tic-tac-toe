@@ -1,4 +1,4 @@
-import React from 'react';
+import React    from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
@@ -77,16 +77,16 @@ class Game extends React.Component {
         };
     }
 
-    handleClick(i) {
+    handleClick(square_index) {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
 
-        if (calculateWinner(squares) || squares[i]) {
+        if (calculateWinner(squares) || squares[square_index]) {
             return;
         }
 
-        squares[i] = this.state.xIsNext ? 'X' : 'O';
+        squares[square_index] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
             history: history.concat([{
                 squares: squares,
@@ -103,36 +103,39 @@ class Game extends React.Component {
         });
     }
 
+    renderJumpToButton(step, move) {
+        const desc = move ?
+            'Go to move #' + move :
+            'Go to game start';
+
+        return (
+            <li key={ move }>
+                <button
+                    onClick={ () => this.jumpTo(move) }
+                    className="btn btn-info"
+                >
+                    { desc }
+                </button>
+            </li>
+        )
+    }
+
+    handleGameStatus(winner) {
+        if (winner) {
+            return 'Winner: ' + winner;
+        }  else if (this.state.stepNumber === 9) {
+            return "Draw! Let's try one more time!"
+        } else {
+            return 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+        }
+    }
+
     render() {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
-        const winner = calculateWinner(current.squares);
-
-        const moves = history.map((step, move) => {
-            const desc = move ?
-                'Go to move #' + move :
-                'Go to game start';
-
-            return (
-                <li key={ move }>
-                    <button
-                        onClick={ () => this.jumpTo(move) }
-                        className="btn btn-info"
-                    >
-                        { desc }
-                    </button>
-                </li>
-            )
-        });
-
-        let status;
-        if (winner) {
-            status = 'Winner: ' + winner;
-        }  else if (this.state.stepNumber === 9) {
-            status = "Draw! Let's try one more time!"
-        } else {
-            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-        }
+        const winner  = calculateWinner(current.squares);
+        const moves   = history.map((step, move) => this.renderJumpToButton(step, move));
+        let status    = this.handleGameStatus(winner);
 
         return (
             <div className="game">
